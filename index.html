@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Administrasi Surat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>ARSIPKU</h2>
+    <p>Administrasi Surat</p>
+
+    <button onclick="bukaHalaman('dashboard')">🏠 Dashboard</button>
+    <button onclick="bukaHalaman('data')">📥 Data Surat</button>
+    <button onclick="bukaHalaman('tambah')">➕ Tambah Surat</button>
+    <button onclick="bukaHalaman('laporan')">📊 Laporan</button>
+</div>
+
+<div class="konten">
+    <header>
+        <h2>Sistem Informasi Surat</h2>
+        <span>Administrasi Surat Masuk dan Keluar</span>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="halaman">
+        <h2>Dashboard</h2>
+        <p>Selamat datang di aplikasi administrasi surat.</p>
+
+        <div class="statistik">
+            <div class="card">
+                <h3>Total Surat</h3>
+                <h1 id="totalSurat">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>Surat Masuk</h3>
+                <h1 id="totalMasuk">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>Surat Keluar</h3>
+                <h1 id="totalKeluar">0</h1>
+            </div>
+        </div>
+
+        <h3>Informasi Aplikasi</h3>
+        <div class="panel">
+            Aplikasi ini digunakan untuk mencatat, menyimpan,
+            mencari, mengedit, dan mengelola arsip surat.
+        </div>
+    </section>
+
+    <!-- DATA SURAT -->
+    <section id="data" class="halaman" hidden>
+        <h2>Data Surat</h2>
+
+        <div class="filter">
+            <select id="filterJenis" onchange="tampilkanData()">
+                <option value="semua">Semua Surat</option>
+                <option value="masuk">Surat Masuk</option>
+                <option value="keluar">Surat Keluar</option>
+            </select>
+
+            <input type="search" id="pencarian"
+                placeholder="Cari nomor, nama, perihal..."
+                oninput="tampilkanData()">
+        </div>
+
+        <div class="tabel-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Agenda</th>
+                        <th>Jenis</th>
+                        <th>Nomor Surat</th>
+                        <th>Tanggal</th>
+                        <th>Pengirim / Tujuan</th>
+                        <th>Perihal</th>
+                        <th>File</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="isiTabel"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- TAMBAH SURAT -->
+    <section id="tambah" class="halaman" hidden>
+        <h2 id="judulForm">Tambah Surat</h2>
+
+        <form id="formSurat">
+            <input type="hidden" id="idSurat">
+
+            <label>Jenis Surat</label>
+            <select id="jenis" required>
+                <option value="">Pilih jenis surat</option>
+                <option value="masuk">Surat Masuk</option>
+                <option value="keluar">Surat Keluar</option>
+            </select>
+
+            <label>Nomor Surat</label>
+            <input type="text" id="nomor" required
+                placeholder="Contoh: 001/ADM/XI/2026">
+
+            <label>Tanggal Surat</label>
+            <input type="date" id="tanggal" required>
+
+            <label>Tanggal Diterima / Dikirim</label>
+            <input type="date" id="tanggalProses" required>
+
+            <label>Nama Pengirim / Tujuan</label>
+            <input type="text" id="nama" required
+                placeholder="Masukkan nama pengirim atau tujuan">
+
+            <label>Perihal Surat</label>
+            <textarea id="perihal" required
+                placeholder="Masukkan perihal surat"></textarea>
+
+            <label>Upload File Surat (PDF, maksimal 1 MB)</label>
+            <input type="file" id="fileSurat" accept=".pdf,application/pdf">
+
+            <p id="infoFile"></p>
+
+            <div class="tombol-form">
+                <button type="submit" id="tombolSimpan">
+                    Simpan Surat
+                </button>
+
+                <button type="button" class="batal"
+                    onclick="resetForm()">
+                    Batal
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- LAPORAN -->
+    <section id="laporan" class="halaman" hidden>
+        <h2>Laporan Surat</h2>
+
+        <div class="statistik">
+            <div class="card">
+                <h3>Surat Masuk</h3>
+                <h1 id="laporanMasuk">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>Surat Keluar</h3>
+                <h1 id="laporanKeluar">0</h1>
+            </div>
+        </div>
+
+        <button onclick="cetakLaporan()">
+            🖨 Cetak Laporan
+        </button>
+    </section>
+
+    <footer>
+        <p>© 2026 Aplikasi Administrasi Surat</p>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
